@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from flask import Flask, render_template, request, redirect, flash, url_for
 
@@ -47,6 +48,17 @@ def book(competition, club):
     foundClub = [c for c in clubs if c["name"] == club]
     foundCompetition = [c for c in competitions if c["name"] == competition]
     if foundClub and foundCompetition:
+        if (
+            datetime.strptime(foundCompetition["date"], "%Y-%m-%d %H:%M:%S")
+            < datetime.now()
+        ):
+            flash("The competition is in the past.")
+            return (
+                render_template(
+                    "welcome.html", club=foundClub, competitions=competitions
+                ),
+                403,
+            )
         return render_template(
             "booking.html", club=foundClub[0], competition=foundCompetition[0]
         )
@@ -83,6 +95,12 @@ def purchasePlaces():
         )
     elif placesRequired > 12:
         flash("You are not allowed to book more than 12 places!")
+        return (
+            render_template("welcome.html", club=club, competitions=competitions),
+            403,
+        )
+    elif datetime.strptime(competition["date"], "%Y-%m-%d %H:%M:%S") < datetime.now():
+        flash("The competition is in the past.")
         return (
             render_template("welcome.html", club=club, competitions=competitions),
             403,
