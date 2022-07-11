@@ -49,13 +49,13 @@ def book(competition, club):
     foundCompetition = [c for c in competitions if c["name"] == competition]
     if foundClub and foundCompetition:
         if (
-            datetime.strptime(foundCompetition["date"], "%Y-%m-%d %H:%M:%S")
+            datetime.strptime(foundCompetition[0]["date"], "%Y-%m-%d %H:%M:%S")
             < datetime.now()
         ):
             flash("The competition is in the past.")
             return (
                 render_template(
-                    "welcome.html", club=foundClub, competitions=competitions
+                    "welcome.html", club=foundClub[0], competitions=competitions
                 ),
                 403,
             )
@@ -64,7 +64,10 @@ def book(competition, club):
         )
     else:
         flash("Something went wrong-please try again")
-        return render_template("welcome.html", club=club, competitions=competitions)
+        return (
+            render_template("welcome.html", club=club, competitions=competitions),
+            403,
+        )
 
 
 @app.route("/purchasePlaces", methods=["POST"])
