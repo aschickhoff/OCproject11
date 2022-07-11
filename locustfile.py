@@ -40,3 +40,7 @@ class LocustServerClient(HttpUser):
     @task
     def logout(self):
         self.client.get("/logout")
+
+    @task
+    def overview(self):
+        self.client.get("/overview")

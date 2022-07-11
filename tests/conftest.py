@@ -15,6 +15,11 @@ def setup():
             "email": "admin@carbontemple.com",
             "points": "10",
         },
+        {
+            "name": "Aurum Temple",
+            "email": "admin@aurumtemple.com",
+            "points": "100",
+        },
     ]
     server.competitions = [
         {

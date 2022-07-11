@@ -29,7 +29,7 @@ def test_purchasePlaces_failed_missing_places(setup):
         "/purchasePlaces",
         data={
             "places": 10,
-            "club": club[0]["name"],
+            "club": club[2]["name"],
             "competition": competition[0]["name"],
         },
     )
@@ -70,6 +70,23 @@ def test_purchasePlaces_invalid_points_input(setup):
     assert response.status_code == 403
 
 
+def test_purchasePlaces_no_points_input(setup):
+    flask_app = app.test_client()
+
+    competition = setup[1]
+    club = setup[0]
+
+    response = flask_app.post(
+        "/purchasePlaces",
+        data={
+            "places": "",
+            "club": club[1]["name"],
+            "competition": competition[1]["name"],
+        },
+    )
+    assert response.status_code == 403
+
+
 def test_purchasePlaces_failed_more_than_allowed(setup):
     flask_app = app.test_client()
 
@@ -80,7 +97,7 @@ def test_purchasePlaces_failed_more_than_allowed(setup):
         "/purchasePlaces",
         data={
             "places": 14,
-            "club": club[0]["name"],
+            "club": club[2]["name"],
             "competition": competition[1]["name"],
         },
     )

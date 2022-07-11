@@ -126,8 +126,7 @@ def purchasePlaces():
 
 @app.route("/overview")
 def overviewClubs():
-    club = [club for club in clubs]
-    return render_template("overview.html", club=club, clubs=clubs)
+    return render_template("overview.html", clubs=clubs)
 
 
 @app.route("/logout")
