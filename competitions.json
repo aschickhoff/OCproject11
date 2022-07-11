@@ -9,6 +9,16 @@
             "name": "Fall Classic",
             "date": "2020-10-22 13:30:00",
             "numberOfPlaces": "13"
+        },
+        {
+            "name": "Autmn Classic",
+            "date": "2025-10-22 13:30:00",
+            "numberOfPlaces": "13"
+        },
+        {
+            "name": "Locust Event",
+            "date": "2025-10-22 13:30:00",
+            "numberOfPlaces": "5000"
         }
     ]
 }
