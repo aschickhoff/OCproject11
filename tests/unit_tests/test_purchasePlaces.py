@@ -53,6 +53,23 @@ def test_purchasePlaces_failed_missing_points(setup):
     assert response.status_code == 403
 
 
+def test_purchasePlaces_invalid_points_input(setup):
+    flask_app = app.test_client()
+
+    competition = setup[1]
+    club = setup[0]
+
+    response = flask_app.post(
+        "/purchasePlaces",
+        data={
+            "places": -1,
+            "club": club[1]["name"],
+            "competition": competition[1]["name"],
+        },
+    )
+    assert response.status_code == 403
+
+
 def test_purchasePlaces_failed_more_than_allowed(setup):
     flask_app = app.test_client()
 
