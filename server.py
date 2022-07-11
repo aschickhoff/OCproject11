@@ -73,6 +73,7 @@ def purchasePlaces():
         0
     ]
     club = [c for c in clubs if c["name"] == request.form["club"]][0]
+
     try:
         placesRequired = int(request.form["places"])
     except ValueError:
@@ -101,6 +102,12 @@ def purchasePlaces():
         )
     elif datetime.strptime(competition["date"], "%Y-%m-%d %H:%M:%S") < datetime.now():
         flash("The competition is in the past.")
+        return (
+            render_template("welcome.html", club=club, competitions=competitions),
+            403,
+        )
+    elif placesRequired > int(competition["numberOfPlaces"]):
+        flash("There are not enough places available.")
         return (
             render_template("welcome.html", club=club, competitions=competitions),
             403,
