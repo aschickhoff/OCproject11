@@ -1,0 +1,8 @@
+bin
+include
+lib
+.Python
+env
+.envrc
+__pycache__
+.pytest_cache
