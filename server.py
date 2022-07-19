@@ -30,7 +30,7 @@ def index():
 @app.route("/showSummary", methods=["POST"])
 def showSummary():
     if "email" not in request.form:
-        flash("No email adress was provided.")
+        flash("No email address was provided.")
         return render_template("index.html"), 401
     elif request.form["email"] == "":
         flash("The email address field is empty. Please enter your email address.")
