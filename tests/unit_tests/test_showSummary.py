@@ -24,3 +24,10 @@ def test_showSummary_empty_email():
 
     response = flask_app.post("/showSummary", data={"email": empty_email})
     assert response.status_code == 401
+
+
+def test_showSummary_missing_email_field():
+    flask_app = app.test_client()
+
+    response = flask_app.post("/showSummary", data={})
+    assert response.status_code == 401
